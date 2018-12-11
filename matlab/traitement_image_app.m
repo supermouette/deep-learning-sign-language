@@ -9,32 +9,40 @@ clc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-nbimage = 12; %Nombre d'image par sous dossier
+nbimage = 2000; %Nombre d'image par sous dossier
 Images = cell(nbimage);
-SE = [1 1 1;
-      1 1 1;
-      1 1 1];
+SE = strel('rectangle',[5 5]);
 seuil = 100; %Seuil retenu manuellement à partir de l'histogramme
   
   
 for i=1:nbimage
-    path = sprintf('Image/Pouce/%d.png',i);
+    path = sprintf('D:/ELEZI_projet_IN/reorganized_dataset/Pouce/pouce (%d).png',i);
     I = imread(path);
+    %I = rot90(imresize(rgb2gray(imread('Image\test.jpg')),0.1),-1);
+    %imshow(I);
+    %imhist(I);
     %seuil = graythresh(I)*100;
     I_BW1 = im2bw(I,seuil/255);
     I_BW2 =~ I_BW1;
-
+    %imshow(I_BW2);
     I_BW_morph = imerode(I_BW2,SE);
+    %imshow(I_BW_morph);
     rect = boxing(I_BW_morph,1);
     I_crop = imcrop(I_BW_morph,[rect(1) rect(2) rect(3)-rect(1) rect(4)-rect(2)]);
     Images{i} = I_crop;
 end
 
+nberror = 0;
 for i=1:nbimage
-    figure('Name',sprintf('Image %d',i));
-    imshow(Images{i});
-    fname = sprintf('Image/Pouce/test_%d.tif',i);
-    imwrite(Images{i},fname);
+    %figure('Name',sprintf('Image %d',i));
+    %imshow(Images{i});
+    if size(Images{i},2) > 40
+        fname = sprintf('D:/ELEZI_projet_IN/reorganized_dataset/Pouce/crop_bin_%d.tif',i-nberror);
+        imwrite(Images{i},fname);
+        %imwrite(Images{i},'Image\crop_bin_test.tif');
+    else
+        nberror = nberror + 1;
+    end
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,6 +94,8 @@ end
 function tabligne = searchline(I, vx)
     innb = false;
     tabligne = zeros(1,2);
+    tabligne(1,1) = 1;
+    tabligne(1,2) = size(I,1);
     l = 1;
     for i = 1:size(I,1)
     
@@ -119,6 +129,8 @@ end
 function tabcol = searchcol(I0, vy, N)
     innb = false;
     tabcol = zeros(N,2);
+    tabcol(1,1) = 1;
+    tabcol(1,2) = size(I0,2);
     l = 1;
     for i = 1:size(I0,2)
         
