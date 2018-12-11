@@ -29,7 +29,7 @@ function reconnaissance()
     
     proba = zeros(nb_signes,1);
     for i=1:nb_signes       
-        proba(i,1) = proba_chiffre_distance(centres_app, centre_test, i, nb_signes);
+        proba(i,1) = proba_distance(centres_app, centre_test, i, nb_signes);
     end
 
 end
@@ -62,21 +62,21 @@ function [profil] = dist_eucli(I, d)
     profil = [distance(:,1) ; distance(:,2)];
 end
 
-function proba = proba_chiffre_distance(centres_app, c_chiffre, n, nb_signes)
+function proba = proba_distance(centres_app, c_test, n, nb_signes)
     tab_dist = zeros(10,1);
     sum_exp = 0;
     for i = 1:nb_signes
-        tab_dist(i) = distance_chiffre_centre(centres_app{i}, c_chiffre);
+        tab_dist(i) = distance_centre(centres_app{i}, c_test);
         sum_exp = sum_exp + exp(-tab_dist(i));
     end
     proba = exp(-tab_dist(n))/sum_exp;
 
 end
 
-function distance = distance_chiffre_centre(centre_app, c_chiffre)
+function distance = distance_centre(centre_app, c_test)
     m = 0;
     for i = 1:length(centre_app)
-        m = m + power((centre_app(i) - c_chiffre(i)),2);
+        m = m + power((centre_app(i) - c_test(i)),2);
     end
     distance = sqrt(m);
 end
