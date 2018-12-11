@@ -1,6 +1,6 @@
 function reconnaissance()
     nb_signes = 5;
-    nb_images_app = 11;
+    nb_images_app = 12;
     d=5;
     sums = zeros(2*d,1);
     centres_app = cell(nb_signes,1);
@@ -21,8 +21,8 @@ function reconnaissance()
         centres_app{s} = sums;
     end
     
-    path = sprintf('Image/Poing/test_12.tif');
-    %path = sprintf('Image/test/%s/test_%d.tif',signes{s},i);
+    %path = sprintf('Image/Poing/test_12.tif');
+    path = sprintf('Image/crop_bin_test.tif');
     I_test = imread(path);
     
     centre_test = dist_eucli(I_test, d);
