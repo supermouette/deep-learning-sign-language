@@ -1,13 +1,13 @@
 def load_data_from_file(path, p=0.2):
     from os import listdir, sep
     from skimage import io
-    from skimage.transform import resize
+    from skimage.transform import rescale
 
     x = []
     y = []
     to_categ = {1:0, 3:1, 5:2, 6:3, 7:4}
     for d in listdir(path):
-        if int(d) < 5:
+        if int(d):
             new_path = path + sep + d
             print("reading " + new_path)
             for d2 in listdir(new_path):
@@ -18,7 +18,8 @@ def load_data_from_file(path, p=0.2):
                     for d3 in listdir(last_path):
                         y.append(to_categ[y_path])
                         #x.append(rescale(io.imread(last_path + sep + d3, as_grey=True), 0.25))
-                        x.append(resize(io.imread(last_path + sep + d3, as_grey=True), (224, 224)))
+                        x.append(io.imread(last_path + sep + d3, as_grey=True))
+                        #x.append(resize(io.imread(last_path + sep + d3, as_grey=True), (224, 224)))
 
     X_test = x[:int(len(x) * p)]
     y_test = y[:int(len(y) * p)]

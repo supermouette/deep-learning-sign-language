@@ -26,6 +26,7 @@ t0 = time()
 seed = 7
 np.random.seed(seed)
 path = r"..\datasets\leapGestRecog\leapGestRecog"
+path = r"..\datasets\leapGestRecog\preprocessed"
 X_train, y_train, X_test, y_test = load_data_from_file(path, 0.2)
 
 """
@@ -84,15 +85,14 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 #model.add(MaxPooling2D(pool_size=(2, 2)))
 
 model.add(Flatten())
-model.add(Dense(512, activation='relu', kernel_constraint=maxnorm(3)))
-model.add(Dropout(0.4))
+model.add(Dense(256, activation='relu', kernel_constraint=maxnorm(3)))
 model.add(Dense(128, activation='relu', kernel_constraint=maxnorm(3)))
 model.add(Dropout(0.4))
 model.add(Dense(num_classes, activation='softmax'))
 
 
-epochs = 5
-lrate = 0.00001
+epochs = 20
+lrate = 0.0001
 decay = lrate/epochs
 sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
