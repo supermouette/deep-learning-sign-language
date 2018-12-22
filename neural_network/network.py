@@ -79,8 +79,10 @@ model.add(Dropout(0.2))
 
 model.add(Convolution2D(32, (3, 3), activation='relu', padding='same', kernel_constraint=maxnorm(3)))
 model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.2))
 model.add(Convolution2D(64, (3, 3), activation='relu', padding='same', kernel_constraint=maxnorm(3)))
 model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.2))
 #model.add(Convolution2D(128, (3, 3), activation='relu', padding='same', kernel_constraint=maxnorm(3)))
 #model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -91,8 +93,8 @@ model.add(Dropout(0.4))
 model.add(Dense(num_classes, activation='softmax'))
 
 
-epochs = 20
-lrate = 0.0001
+epochs = 5
+lrate = 0.001
 decay = lrate/epochs
 sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
