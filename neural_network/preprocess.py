@@ -7,7 +7,6 @@ def preprocess(img):
     return img
 
 
-
 if __name__ == "__main__":
     from skimage import io
     from time import time
