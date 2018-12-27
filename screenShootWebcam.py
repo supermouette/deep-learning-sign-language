@@ -10,6 +10,7 @@ import cv2
 import numpy as np
 from resizeimage import resizeimage
 
+
 def show_webcam(mirror=False):
     count = 0
     taille_final = [640, 240]
