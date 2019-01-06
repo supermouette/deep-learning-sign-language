@@ -62,14 +62,6 @@ y_test = np_utils.to_categorical(y_test)
 
 model = Sequential()
 
-#------- network definition
-"""
-model.add(Dense(num_pixels, input_dim=num_pixels, kernel_initializer= 'normal' , activation= 'relu' ))
-model.add(Dense(num_classes, kernel_initializer= 'normal' , activation= 'softmax' ))
-"""
-#-------
-
-
 model.add(Convolution2D(32, (3, 3), input_shape=(1, height, width), padding='same', activation='relu', kernel_constraint=maxnorm(3)))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.2))
@@ -83,8 +75,6 @@ model.add(Dropout(0.2))
 model.add(Convolution2D(64, (3, 3), activation='relu', padding='same', kernel_constraint=maxnorm(3)))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.2))
-#model.add(Convolution2D(128, (3, 3), activation='relu', padding='same', kernel_constraint=maxnorm(3)))
-#model.add(MaxPooling2D(pool_size=(2, 2)))
 
 model.add(Flatten())
 model.add(Dense(256, activation='relu', kernel_constraint=maxnorm(3)))
