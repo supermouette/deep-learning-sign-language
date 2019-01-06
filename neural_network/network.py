@@ -26,7 +26,7 @@ t0 = time()
 seed = 7
 np.random.seed(seed)
 path = r"..\datasets\leapGestRecog\leapGestRecog"
-path = r"..\datasets\leapGestRecog\preprocessed"
+path = r"..\datasets\leapGestRecog\preprocessed_fixed"
 X_train, y_train, X_test, y_test = load_data_from_file(path, 0.2)
 
 """
@@ -83,8 +83,8 @@ model.add(Dropout(0.4))
 model.add(Dense(num_classes, activation='softmax'))
 
 
-epochs = 5
-lrate = 0.001
+epochs = 10
+lrate = 0.0015
 decay = lrate/epochs
 sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])

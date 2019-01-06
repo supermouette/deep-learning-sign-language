@@ -28,9 +28,10 @@ def load_real_data(path):
             img = io.imread(new_path, as_grey=True)
             # 3456*4606
             # 122*60
+            # 110 * 60
             img = gaussian(img)
             img = resize(img, (60, int(60 * 0.75)))
-            new_img = np.zeros((60, 122))
+            new_img = np.zeros((60, 110))
             new_img[:, new_img.shape[1] // 2 - img.shape[1] // 2:new_img.shape[1] // 2 + img.shape[1] // 2 + 1] = img
             new_img = sobel(new_img)
             strip1 = new_img.shape[1] // 2 - img.shape[1] // 2

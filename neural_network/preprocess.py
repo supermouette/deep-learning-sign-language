@@ -1,7 +1,7 @@
 def preprocess(img):
     from skimage.filters import sobel
     from skimage.transform import rescale
-    img = img[:,150:650]
+    img = img[:,100:img.shape[1]-100]
     img = rescale(img, 1/4)
     img = sobel(img)
     return img
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     from os.path import isdir
     t0 = time()
     path = r"..\datasets\leapGestRecog\leapGestRecog"
-    path2 = r"..\datasets\leapGestRecog\preprocessed"
+    path2 = r"..\datasets\leapGestRecog\preprocessed_fixed"
     for d in listdir(path):
         if int(d):
             new_path = path + sep + d
