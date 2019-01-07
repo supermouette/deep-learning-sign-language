@@ -1,7 +1,7 @@
 # deep-learning-sign-language
 
 lien de la base de donnée : https://www.kaggle.com/gti-upm/leapgestrecog/kernels
-
+Il faut placer la base de donnée décompréssé dans un dossier datasets à la racine du projet.
 IL y a deux parties : la partie matlab et partie deep learning.
 
 
